@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Graph</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h2>Graph</h2>
+
+    <button onclick="loadData()">loadData</button>
+    <button onclick="resetData()">Reset</button>
+    <br><br>
+
+    <canvas id="c" width="700" height="400"></canvas>
+
+    <script>
+        const original=[20,35,46,58,60,71,80,15];
+        let data = [...original];
+
+        const cv = document.getElementById("c");
+        const ctx = cv.getContext("2d");
+
+        function bubble(a) {
+            for (let i = 0; i < a.length - 1; i++) {
+                for (let j = 0; j < a.length - i - 1; j++) {
+                    if (a[j] > a[j + 1]) {
+                        [a[j], a[j + 1]] = [a[j + 1], a[j]];
+                    }
+                }
+            }
+        }
+
+        function draw(arr) {
+            ctx.clearRect(0, 0, 700, 400);
+
+            ctx.beginPath();
+            ctx.moveTo(40, 350);
+            ctx.lineTo(660, 350);
+            ctx.stroke();
+
+            for (let i = 0; i < arr.length; i++) {
+
+                let x = 60 + i * 70;
+                let h = arr[i] * 3;
+
+                ctx.fillStyle = "green";
+                ctx.fillRect(x, 350 - h, 40, h);
+
+                ctx.fillStyle = "black";
+                ctx.font = "16px Arial";
+                ctx.fillText(arr[i], x + 8, 370);
+            }
+        }
+
+        function loadData() {
+            data = [...original];
+            bubble(data);
+            draw(data);
+        }
+
+        function resetData() {
+            data = [...original];
+            draw(data);
+        }
+
+        draw(data);
+    </script>
+
+</body>
+
+</html>
